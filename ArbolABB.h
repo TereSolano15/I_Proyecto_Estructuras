@@ -25,9 +25,9 @@ public:
     int Altura(const int dat);
     int &ValorActual() { return actual->dato; }
     void Raiz() { actual = raiz; }
-    void InOrden(void (*func)(int&) , Nodo *nodo=NULL, bool r=true);
-    void PreOrden(void (*func)(int&) , Nodo *nodo=NULL, bool r=true);
-    void PostOrden(void (*func)(int&) , Nodo *nodo=NULL, bool r=true);
+    void InOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
+    void PreOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
+    void PostOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
 private:
 
     void Podar(Nodo* &);
