@@ -3,4 +3,4 @@ project(I_Proyecto_Estructuras)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(I_Proyecto_Estructuras main.cpp ArbolABB.h ArbolABB.cpp Nodo.h PriorityQueue.cpp PriorityQueue.h CSVRead.h CSVWrite.h)
+add_executable(I_Proyecto_Estructuras main.cpp ArbolABB.h ArbolABB.cpp Nodo.h PriorityQueue.cpp PriorityQueue.h CSVRead.h CSVWrite.h TransformadorCSV.h Cliente.cpp Cliente.h)

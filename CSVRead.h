@@ -5,26 +5,22 @@
 #ifndef I_PROYECTO_ESTRUCTURAS_CSVREAD_H
 #define I_PROYECTO_ESTRUCTURAS_CSVREAD_H
 template<class T>
-class CsvReader : public IReader<T>{
+class CsvReader{
 private:
     fstream entrada;
     ITransformadorCsv<T>* transformadorCsv;
-
-    vector<string>* generarCampos(string registroActual)
-    {
+    vector<string>* generarCampos(string registroActual){
         vector<string>* campos = new vector<string>();
         string valor;
         istringstream iss(registroActual);
-        while (getline(iss, valor, ','))
-        {
+        while (getline(iss, valor, ',')){
             campos->push_back(valor);
         }
         return campos;
     }
 
 public:
-    CsvReader(string rutaArchivo, ITransformadorCsv<T>* transformadorCsv)
-    {
+    CsvReader(string rutaArchivo, ITransformadorCsv<T>* transformadorCsv){
         this->transformadorCsv = transformadorCsv;
         this->entrada.open(rutaArchivo, ios::in);
         if (!entrada.good())
@@ -33,8 +29,7 @@ public:
         }
     }
 
-    vector<T>* leerTodos()
-    {
+    vector<T>* leerTodos(){
         string registroActual;
         vector<T>* objetos = new vector<T>();
         while (getline(this->entrada, registroActual))

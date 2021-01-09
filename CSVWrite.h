@@ -13,11 +13,8 @@ private:
     string generarRegistro(vector<string>* campos){
         auto begin = campos->begin();
         auto end = campos->end();
-
         stringstream ss;
-
-        if (begin != end)
-        {
+        if (begin != end){
             ss << *begin++;
         }
 
@@ -48,16 +45,14 @@ public:
         delete campos;
     }
 
-    void escribirTodos(vector<T>* elementos) override
-    {
+    void escribirTodos(vector<T>* elementos) override{
         for (auto& actual : *elementos)
         {
             this->escribir(actual);
         }
     }
 
-    ~CsvWriter()
-    {
+    ~CsvWriter(){
         this->salida.close();
         delete this->transformadorCsv;
     }
