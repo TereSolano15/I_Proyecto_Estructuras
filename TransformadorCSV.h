@@ -4,6 +4,7 @@
 
 #ifndef I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
 #define I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
+
 using namespace std;
 
 template<class T>

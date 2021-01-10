@@ -4,8 +4,9 @@
 
 #ifndef I_PROYECTO_ESTRUCTURAS_CSVWRITE_H
 #define I_PROYECTO_ESTRUCTURAS_CSVWRITE_H
+#include "CSVWrite.h"
 template<class T>
-class CsvWriter : public IWriter<T>{
+class CsvWriter : public CsvWriter<T>{
 private:
     fstream salida;
     ITransformadorCsv<T>* transformadorCsv;
@@ -18,12 +19,10 @@ private:
             ss << *begin++;
         }
 
-        while (begin != end)
-        {
+        while (begin != end){
             ss << ",";
             ss << *begin++;
         }
-
         ss << endl;
         return ss.str();
     }

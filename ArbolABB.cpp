@@ -3,18 +3,26 @@
 //
 
 #include "ArbolABB.h"
-#include "ArbolABB.h"
-void ArbolABB::Podar(Nodo* &nodo){
-    // Algoritmo recursivo, recorrido en postorden
+
+template <typename T>
+ArbolABB<T>::ArbolABB():raiz(nullptr), actual(nullptr){}
+
+template <typename T>
+ArbolABB<T>::~ArbolABB<T>() {
+    eliminar(raiz);
+}
+template <typename T>
+void ArbolABB<T>::eliminar(Nodo<T>* &nodo){
     if(nodo) {
-        Podar(nodo->izquierdo); // Podar izquierdo
-        Podar(nodo->derecho);   // Podar derecho
+        eliminar(nodo->izquierdo); // eliminar izquierdo
+        eliminar(nodo->derecho);   // eliminar derecho
         delete nodo;            // Eliminar nodo
         nodo = nullptr;
     }
 }
-void ArbolABB::Insertar(const int dat){
-    Nodo *padre = nullptr;
+template <typename T>
+void ArbolABB<T>::Insertar(const T dat){
+    Nodo<T> *padre = nullptr;
     actual = raiz;
     while(!vacio(actual) && dat != actual->dato) {
         padre = actual;
@@ -22,36 +30,28 @@ void ArbolABB::Insertar(const int dat){
         else if(dat < actual->dato) actual = actual->izquierdo;
     }
     if(!vacio(actual)) return;
-    if(vacio(padre)) raiz = new Nodo(dat);
-        // Si el int es menor que el que contiene el nodo padre, lo insertamos
-        // en la rama izquierda
-    else if(dat < padre->dato) padre->izquierdo = new Nodo(dat);
-        // Si el int es mayor que el que contiene el nodo padre, lo insertamos
-        // en la rama derecha
-    else if(dat > padre->dato) padre->derecho = new Nodo(dat);
+    if(vacio(padre)) raiz = new Nodo<T>(dat);
+    else if(dat < padre->dato) padre->izquierdo = new Nodo<T>(dat);
+    else if(dat > padre->dato) padre->derecho = new Nodo<T>(dat);
 }
-
-// Eliminar un elemento de un árbol ABB
-void ArbolABB::Borrar(const int dat){
-    Nodo *padre = NULL;
-    Nodo *nodo;
+template <typename T>
+void ArbolABB<T>::Borrar(const T dat){
+    Nodo<T> *padre = nullptr;
+    Nodo<T> *nodo;
     int aux;
     actual = raiz;
     while(!vacio(actual)) {
-        if(dat == actual->dato) { // Si el valor está en el nodo actual
-            if(EsHoja(actual)) { // Y si además es un nodo hoja: lo borramos
-                if(padre) // Si tiene padre (no es el nodo raiz)
-                    // Anulamos el puntero que le hace referencia
-                    if(padre->derecho == actual) padre->derecho = NULL;
-                    else if(padre->izquierdo == actual) padre->izquierdo = NULL;
+        if(dat == actual->dato) {
+            if(EsHoja(actual)) {
+                if(padre)
+                    if(padre->derecho == actual) padre->derecho = nullptr;
+                    else if(padre->izquierdo == actual) padre->izquierdo = nullptr;
                 delete actual; // borrar el nodo
-                actual = NULL;
+                actual = nullptr;
                 return;
             }
-            else { // Si el valor está en el nodo actual, pero no es hoja
-                // buscar nodo
+            else {
                 padre = actual;
-                // buscar nodo más izquierdo de rama derecha
                 if(actual->derecho) {
                     nodo = actual->derecho;
                     while(nodo->izquierdo) {
@@ -59,7 +59,6 @@ void ArbolABB::Borrar(const int dat){
                         nodo = nodo->izquierdo;
                     }
                 }
-                    // O buscar nodo más derecho de rama izquierda
                 else {
                     nodo = actual->izquierdo;
                     while(nodo->derecho) {
@@ -67,101 +66,103 @@ void ArbolABB::Borrar(const int dat){
                         nodo = nodo->derecho;
                     }
                 }
-                // Intercambiar valores de no a borrar u nodo encontrado
-                // y continuar, cerrando el bucle. El nodo encontrado no tiene
-                // por qué ser un nodo hoja, cerrando el bucle nos aseguramos
-                // de que sólo se eliminan nodos hoja.
                 aux = actual->dato;
                 actual->dato = nodo->dato;
                 nodo->dato = aux;
                 actual = nodo;
             }
         }
-        else { // Todavía no hemos encontrado el valor, seguir buscándolo
+        else {
             padre = actual;
             if(dat > actual->dato) actual = actual->derecho;
             else if(dat < actual->dato) actual = actual->izquierdo;
         }
     }
 }
-
-void ArbolABB::InOrden(void (*func)(int&) , Nodo *nodo, bool r)
-{
+template <typename T>
+bool ArbolABB<T>::vacio(Nodo<T> *r) {
+     return r == nullptr;
+}
+template <typename T>
+bool ArbolABB<T>::EsHoja(Nodo<T> *r) {
+     return !r->derecho && !r->izquierdo;
+}
+template <typename T>
+void ArbolABB<T>::InOrden(void (*func)(int&) , Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     if(nodo->izquierdo) InOrden(func, nodo->izquierdo, false);
     func(nodo->dato);
     if(nodo->derecho) InOrden(func, nodo->derecho, false);
 }
-
-void ArbolABB::PreOrden(void (*func)(int&), Nodo *nodo, bool r)
-{
+template <typename T>
+T& ArbolABB<T>::ValorActual() {
+     return actual->dato;
+}
+template <typename T>
+void ArbolABB<T>::PreOrden(void (*func)(int&), Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     func(nodo->dato);
     if(nodo->izquierdo) PreOrden(func, nodo->izquierdo, false);
     if(nodo->derecho) PreOrden(func, nodo->derecho, false);
 }
-
-void ArbolABB::PostOrden(void (*func)(int&), Nodo *nodo, bool r){
+template <typename T>
+void ArbolABB<T>::PostOrden(void (*func)(int&), Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     if(nodo->izquierdo) PostOrden(func, nodo->izquierdo, false);
     if(nodo->derecho) PostOrden(func, nodo->derecho, false);
     func(nodo->dato);
 }
-
-bool ArbolABB::Buscar(const int dat){
+template <typename T>
+bool ArbolABB<T>::Buscar(const T dat){
     actual = raiz;
 
     while(!vacio(actual)) {
-        if(dat == actual->dato) return true; // int encontrado
-        else if(dat > actual->dato) actual = actual->derecho; // Seguir
+        if(dat == actual->dato) return true;
+        else if(dat > actual->dato) actual = actual->derecho;
         else if(dat < actual->dato) actual = actual->izquierdo;
     }
-    return false; // No está en árbol
+    return false;
 }
-
-int ArbolABB::Altura(const int dat){
+template <typename T>
+int ArbolABB<T>::Altura(const T dat){
     int _altura = 0;
     actual = raiz;
-    // Todavía puede aparecer, ya que quedan nodos por mirar
     while(!vacio(actual)) {
-        if(dat == actual->dato) return altura; // int encontrado
+        if(dat == actual->dato) return altura;
         else {
-            altura++; // Incrementamos la altura, seguimos buscando
+            altura++;
             if(dat > actual->dato) actual = actual->derecho;
             else if(dat < actual->dato) actual = actual->izquierdo;
         }
     }
-    return -1; // No está en árbol
+    return -1;
 }
-
-const int ArbolABB::NumeroNodos(){
-    contador = 0;
-    auxContador(raiz); // FUnción auxiliar
-    return contador;
+template <typename T>
+const int ArbolABB<T>::NumeroNodos(){
+    cant = 0;
+    auxContador(raiz);
+    return cant;
 }
-
-void ArbolABB::auxContador(Nodo *nodo){
-    contador++;  // Otro nodo
-    // Continuar recorrido
+template <typename T>
+void ArbolABB<T>::auxContador(Nodo<T> *nodo){
+    cant++;
     if(nodo->izquierdo) auxContador(nodo->izquierdo);
     if(nodo->derecho)   auxContador(nodo->derecho);
 }
-const int ArbolABB::AlturaArbol(){
+template <typename T>
+const int ArbolABB<T>::AlturaArbol(){
     altura = 0;
-
     auxAltura(raiz, 0); // Función auxiliar
     return altura;
 }
-
-void ArbolABB::auxAltura(Nodo *nodo, int a){
-    // Recorrido postorden
+template <typename T>
+void ArbolABB<T>::auxAltura(Nodo<T> *nodo, T a){
     if(nodo->izquierdo) auxAltura(nodo->izquierdo, a+1);
     if(nodo->derecho)   auxAltura(nodo->derecho, a+1);
-    // Proceso, si es un nodo hoja, y su altura es mayor que la actual del
-    // árbol, actualizamos la altura actual del árbol
+
     if(EsHoja(nodo) && a > altura) altura = a;
 }
-
-void Mostrar(int &d){
+template <typename T>
+void ArbolABB<T>::Mostrar(T &d){
     cout << d << ",";
 }

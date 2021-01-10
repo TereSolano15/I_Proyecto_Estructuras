@@ -6,9 +6,11 @@
 #define I_PROYECTO_ESTRUCTURAS_NODO_H
 #include <iostream>
 using namespace std;
+
+template<typename T>
 class Nodo {
 public:
-    Nodo(const int dat, Nodo *izq= nullptr, Nodo *der= nullptr) :dato(dat), izquierdo(izq), derecho(der) {}
+    Nodo(const T dat, Nodo *izq= nullptr, Nodo *der= nullptr) :dato(dat), izquierdo(izq), derecho(der) {}
     int dato;
     Nodo *izquierdo;
     Nodo *derecho;

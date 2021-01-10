@@ -1,38 +1,38 @@
 //
 // Created by Tere Solano on 9/1/2021.
 //
-
 #ifndef I_PROYECTO_ESTRUCTURAS_ARBOLABB_H
 #define I_PROYECTO_ESTRUCTURAS_ARBOLABB_H
 #include "Nodo.h"
 
+template <typename T>
 class ArbolABB {
 private:
-    Nodo *raiz;
-    Nodo *actual;
-    int contador;
+    Nodo<T> *raiz;
+    Nodo<T> *actual;
+    int cant;
     int altura;
 public:
-    ArbolABB() : raiz(nullptr), actual(nullptr) {}
-    ~ArbolABB() { Podar(raiz); }
-    void Insertar(const int dat);
-    void Borrar(const int dat);
-    bool Buscar(const int dat);
-    bool vacio(Nodo *r) { return r == nullptr; }
-    bool EsHoja(Nodo *r) { return !r->derecho && !r->izquierdo; }
+    ArbolABB();
+    ~ArbolABB();
+    void Insertar(const T dat);
+    void Borrar(const T dat);
+    bool Buscar(const T dat);
+    bool vacio(Nodo<T> *r);
+    bool EsHoja(Nodo<T> *r) ;
     const int NumeroNodos();
     const int AlturaArbol();
-    int Altura(const int dat);
-    int &ValorActual() { return actual->dato; }
+    int Altura(const T dat);
+    T &ValorActual();
     void Raiz() { actual = raiz; }
-    void InOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
-    void PreOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
-    void PostOrden(void (*func)(int&) , Nodo *nodo= nullptr, bool r=true);
+    void InOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void PreOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void PostOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void Mostrar(T &d);
 private:
-
-    void Podar(Nodo* &);
-    void auxContador(Nodo*);
-    void auxAltura(Nodo*, int);
+    void eliminar(Nodo<T>* &);
+    void auxContador(Nodo<T>*);
+    void auxAltura(Nodo<T>*, T);
 };
 
 #endif //I_PROYECTO_ESTRUCTURAS_ARBOLABB_H

@@ -4,12 +4,12 @@
 
 #ifndef I_PROYECTO_ESTRUCTURAS_PRIORITYQUEUE_H
 #define I_PROYECTO_ESTRUCTURAS_PRIORITYQUEUE_H
-
+#include "ArbolABB.h"
 using namespace std;
 template <typename E, typename C>
 class PriorityQueue {
 private:
-   // list<E> lista;
+    ArbolABB<E> arbol;
     C isLess;
 public:
     int size() const;
