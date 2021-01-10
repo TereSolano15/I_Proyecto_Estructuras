@@ -5,13 +5,14 @@
 #ifndef I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
 #define I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
 #include <fstream>
+#include "ArbolABB.h"
 using namespace std;
 
 template<class T>
 class TransformadorCsvCliente {
 public:
-    vector<string>* toStringVector(Cliente* elemento) override{
-        vector<string>* campos = new vector<string>();
+    ArbolABB<T>* toStringVector(Cliente* elemento){
+        ArbolABB<T>* campos = new ArbolABB<T>();
         campos->push_back(elemento->getNombre());
         campos->push_back(to_string(elemento->getId()));
         campos->push_back(elemento->isIngresaNinno());
