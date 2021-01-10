@@ -6,6 +6,7 @@
 #define I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
 #include <fstream>
 #include "ArbolABB.h"
+#include "Cliente.h"
 using namespace std;
 
 template<class T>
@@ -14,7 +15,7 @@ public:
     ArbolABB<T>* toStringVector(Cliente* elemento){
         ArbolABB<T>* campos = new ArbolABB<T>();
         campos->push_back(elemento->getNombre());
-        campos->push_back(to_string(elemento->getId()));
+        campos->push_back(toStringVector(elemento->getId()));
         campos->push_back(elemento->isIngresaNinno());
         campos->push_back(elemento->isEmbarazada());
         campos->push_back(elemento->isAdultoMayor());
@@ -22,7 +23,7 @@ public:
         return campos;
     }
 
-    Cliente* fromStringVector(vector<string>* vector) override{
+    Cliente* fromStringVector(vector<string>* vector){
         return new Cliente(vector->at(0), stoi(vector->at(1)));
     }
 };
