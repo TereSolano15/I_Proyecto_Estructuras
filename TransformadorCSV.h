@@ -8,17 +8,21 @@
 using namespace std;
 
 template<class T>
-class TransformadorCsvPersona {
+class TransformadorCsvCliente {
 public:
-    vector<string>* toStringVector(Persona* elemento) override{
+    vector<string>* toStringVector(Cliente* elemento) override{
         vector<string>* campos = new vector<string>();
         campos->push_back(elemento->getNombre());
-        campos->push_back(to_string(elemento->getEdad()));
+        campos->push_back(to_string(elemento->getId()));
+        campos->push_back(elemento->isIngresaNinno());
+        campos->push_back(elemento->isEmbarazada());
+        campos->push_back(elemento->isAdultoMayor());
+        campos->push_back(elemento->getCategoria());
         return campos;
     }
 
-    Persona* fromStringVector(vector<string>* vector) override{
-        return new Persona(vector->at(0), stoi(vector->at(1)));
+    Cliente* fromStringVector(vector<string>* vector) override{
+        return new Cliente(vector->at(0), stoi(vector->at(1)));
     }
 };
 #endif //I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
