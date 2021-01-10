@@ -4,7 +4,7 @@
 
 #ifndef I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
 #define I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
-
+#include <fstream>
 using namespace std;
 
 template<class T>

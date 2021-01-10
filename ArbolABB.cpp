@@ -46,7 +46,7 @@ void ArbolABB<T>::Borrar(const T dat){
                 if(padre)
                     if(padre->derecho == actual) padre->derecho = nullptr;
                     else if(padre->izquierdo == actual) padre->izquierdo = nullptr;
-                delete actual; // borrar el nodo
+                delete actual;
                 actual = nullptr;
                 return;
             }
