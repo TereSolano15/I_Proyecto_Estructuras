@@ -7,32 +7,32 @@
 #include "ArbolABB.h"
 #include "Cliente.h"
 #include<string>
+#include "Lista.h"
 using namespace std;
 
 template<class T>
 class ITransformadorCsv{
 public:
-    virtual ArbolABB<string>* toStringVector(T elemento) = 0;
-    virtual T fromStringVector(ArbolABB<string>* vector) = 0;
+    virtual Lista<string>* toStringVector(T elemento) = 0;
+    virtual T fromStringVector(Lista<string>* vector) = 0;
     virtual ~ITransformadorCsv() = default;
 };
 
 class TransformadorCsvPersona : public ITransformadorCsv<Cliente*>{
 public:
-    ArbolABB<string>* toStringVector(Cliente* elemento) override{
-        ArbolABB<string>* campos = new ArbolABB<string>;
-        campos->Insertar(elemento->getNombre());
-        campos->Insertar(elemento->getId());
-        campos->Insertar(to_string(elemento->isIngresaNinno()));
-        campos->Insertar(to_string(elemento->isEmbarazada()));
-        campos->Insertar(to_string(elemento->isAdultoMayor()));
-        campos->Insertar(to_string(elemento->getCategoria()));
-        return campos;
+    Lista<string> * toStringVector(Cliente* elemento) override{
+        Lista<string>* list = new Lista<string>;
+        list->agregarInicio(elemento->getNombre());
+        list->agregarInicio(elemento->getId());
+        list->agregarInicio(to_string(elemento->isIngresaNinno()));
+        list->agregarInicio(to_string(elemento->isEmbarazada()));
+        list->agregarInicio(to_string(elemento->isAdultoMayor()));
+        list->agregarInicio(to_string(elemento->getCategoria()));
+        return list;
     }
 
-    Cliente* fromStringVector(ArbolABB<string>* vector) override{
-
-        return new Cliente(vector->at(0), stoi(vector->at(1)));
+    Cliente* fromStringVector(Lista<string>* lista) override{
+        return new Cliente(lista->at(0),lista->at(1), stoi(lista->at(2)),stoi(lista->at(3)),stoi(lista->at(4)),stoi(lista->at(5)));
     }
 };
 #endif //I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
