@@ -13,38 +13,25 @@ private:
     bool ingresaNinno;
     bool embarazada;
     bool adultoMayor;
-    string categoria;
+    int categoria;
 public:
     Cliente(const string &nombre, const string &id, bool ingresaNinno, bool embarazada, bool adultoMayor,
-            const string &categoria);
-
+            int categoria);
     Cliente();
-
     virtual ~Cliente();
-
     const string &getNombre() const;
-
     void setNombre(const string &nombre);
-
     const string &getId() const;
-
     void setId(const string &id);
-
     bool isIngresaNinno() const;
-
     void setIngresaNinno(bool ingresaNinno);
-
     bool isEmbarazada() const;
-
     void setEmbarazada(bool embarazada);
-
     bool isAdultoMayor() const;
-
     void setAdultoMayor(bool adultoMayor);
-
-    const string &getCategoria() const;
-
-    void setCategoria(const string &categoria);
+    int getCategoria() const;
+    void setCategoria(int categoria);
+    float porcentajeInfluencia();
 };
 
 

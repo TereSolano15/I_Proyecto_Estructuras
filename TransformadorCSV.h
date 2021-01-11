@@ -13,14 +13,14 @@ template<class T>
 class TransformadorCsvCliente {
 public:
     ArbolABB<T>* toStringVector(Cliente* elemento){
-        ArbolABB<T>* campos = new ArbolABB<T>();
-        campos->push_back(elemento->getNombre());
-        campos->push_back(toStringVector(elemento->getId()));
-        campos->push_back(elemento->isIngresaNinno());
-        campos->push_back(elemento->isEmbarazada());
-        campos->push_back(elemento->isAdultoMayor());
-        campos->push_back(elemento->getCategoria());
-        return campos;
+        ArbolABB<T>* arbol = new ArbolABB<T>();
+        arbol->push_back(elemento->getNombre());
+        arbol->push_back(toStringVector(elemento->getId()));
+        arbol->push_back(elemento->isIngresaNinno());
+        arbol->push_back(elemento->isEmbarazada());
+        arbol->push_back(elemento->isAdultoMayor());
+        arbol->push_back(elemento->getCategoria());
+        return arbol;
     }
 
     Cliente* fromStringArbol(ArbolABB<T>* arbol){
