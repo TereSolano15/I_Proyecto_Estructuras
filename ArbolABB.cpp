@@ -11,6 +11,15 @@ template <typename T>
 ArbolABB<T>::~ArbolABB<T>() {
     eliminar(raiz);
 }
+template<typename T>
+Nodo<T> *ArbolABB<T>::getRaiz() const {
+    return raiz;
+}
+
+template<typename T>
+void ArbolABB<T>::setRaiz(Nodo<T> *raiz) {
+    ArbolABB::raiz = raiz;
+}
 template <typename T>
 void ArbolABB<T>::eliminar(Nodo<T>* &nodo){
     if(nodo) {
@@ -88,25 +97,25 @@ bool ArbolABB<T>::EsHoja(Nodo<T> *r) {
      return !r->derecho && !r->izquierdo;
 }
 template <typename T>
-void ArbolABB<T>::InOrden(void (*func)(int&) , Nodo<T> *nodo, bool r){
+T& ArbolABB<T>::ValorActual() {
+    return actual->dato;
+}
+template <typename T>
+void ArbolABB<T>::InOrden(void (*func)(T&) , Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     if(nodo->izquierdo) InOrden(func, nodo->izquierdo, false);
     func(nodo->dato);
     if(nodo->derecho) InOrden(func, nodo->derecho, false);
 }
 template <typename T>
-T& ArbolABB<T>::ValorActual() {
-     return actual->dato;
-}
-template <typename T>
-void ArbolABB<T>::PreOrden(void (*func)(int&), Nodo<T> *nodo, bool r){
+void ArbolABB<T>::PreOrden(void (*func)(T&), Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     func(nodo->dato);
     if(nodo->izquierdo) PreOrden(func, nodo->izquierdo, false);
     if(nodo->derecho) PreOrden(func, nodo->derecho, false);
 }
 template <typename T>
-void ArbolABB<T>::PostOrden(void (*func)(int&), Nodo<T> *nodo, bool r){
+void ArbolABB<T>::PostOrden(void (*func)(T&), Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     if(nodo->izquierdo) PostOrden(func, nodo->izquierdo, false);
     if(nodo->derecho) PostOrden(func, nodo->derecho, false);
@@ -166,3 +175,4 @@ template <typename T>
 void ArbolABB<T>::Mostrar(T &d){
     cout << d << ",";
 }
+

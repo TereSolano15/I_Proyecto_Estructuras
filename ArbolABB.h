@@ -15,6 +15,11 @@ private:
 public:
     ArbolABB();
     ~ArbolABB();
+
+    Nodo<T> *getRaiz() const;
+
+    void setRaiz(Nodo<T> *raiz);
+
     void Insertar(const T dat);
     void Borrar(const T dat);
     bool Buscar(const T dat);
@@ -24,10 +29,9 @@ public:
     const int AlturaArbol();
     int Altura(const T dat);
     T &ValorActual();
-    void Raiz() { actual = raiz; }
-    void InOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
-    void PreOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
-    void PostOrden(void (*func)(int&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void InOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void PreOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
+    void PostOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
     void Mostrar(T &d);
 private:
     void eliminar(Nodo<T>* &);
