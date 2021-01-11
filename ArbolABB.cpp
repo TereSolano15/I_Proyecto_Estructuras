@@ -101,6 +101,11 @@ T& ArbolABB<T>::ValorActual() {
     return actual->dato;
 }
 template <typename T>
+T& ArbolABB<T>::ValorSiguiente() {
+    return actual+1;
+}
+
+template <typename T>
 void ArbolABB<T>::InOrden(void (*func)(T&) , Nodo<T> *nodo, bool r){
     if(r) nodo = raiz;
     if(nodo->izquierdo) InOrden(func, nodo->izquierdo, false);
@@ -174,5 +179,15 @@ void ArbolABB<T>::auxAltura(Nodo<T> *nodo, T a){
 template <typename T>
 void ArbolABB<T>::Mostrar(T &d){
     cout << d << ",";
+}
+
+template<typename T>
+Nodo<T> *ArbolABB<T>::getActual() const {
+    return actual;
+}
+
+template<typename T>
+void ArbolABB<T>::setActual(Nodo<T> *actual) {
+    ArbolABB::actual = actual;
 }
 

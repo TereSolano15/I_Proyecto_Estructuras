@@ -7,19 +7,11 @@
 
 template <typename T>
 class ArbolABB {
-private:
-    Nodo<T> *raiz;
-    Nodo<T> *actual;
-    int cant;
-    int altura;
 public:
     ArbolABB();
     ~ArbolABB();
-
     Nodo<T> *getRaiz() const;
-
     void setRaiz(Nodo<T> *raiz);
-
     void Insertar(const T dat);
     void Borrar(const T dat);
     bool Buscar(const T dat);
@@ -29,11 +21,19 @@ public:
     const int AlturaArbol();
     int Altura(const T dat);
     T &ValorActual();
+    T &ValorSiguiente();
     void InOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
     void PreOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
     void PostOrden(void (*func)(T&) , Nodo<T> *nodo= nullptr, bool r=true);
     void Mostrar(T &d);
+    Nodo<T> *getActual() const;
+    void setActual(Nodo<T> *actual);
+
 private:
+    Nodo<T> *raiz;
+    Nodo<T> *actual;
+    int cant;
+    int altura;
     void eliminar(Nodo<T>* &);
     void auxContador(Nodo<T>*);
     void auxAltura(Nodo<T>*, T);
