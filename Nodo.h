@@ -18,7 +18,7 @@ public:
     Nodo *izquierdo;
     Nodo *derecho;
     Nodo* siguiente;
-
+    Nodo* data;
     Nodo *getSiguiente() const {
         return siguiente;
     }
