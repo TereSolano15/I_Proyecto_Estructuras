@@ -5,6 +5,9 @@
 #ifndef I_PROYECTO_ESTRUCTURAS_CLIENTE_H
 #define I_PROYECTO_ESTRUCTURAS_CLIENTE_H
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 using namespace std;
 class Cliente {
 private:
@@ -18,20 +21,22 @@ public:
     Cliente(const string &nombre, const string &id, bool ingresaNinno, bool embarazada, bool adultoMayor,
             int categoria);
     Cliente();
+    Cliente(istream& input);
     virtual ~Cliente();
-    const string &getNombre() const;
-    void setNombre(const string &nombre);
-    const string &getId() const;
-    void setId(const string &id);
-    bool isIngresaNinno() const;
+    const string &getNombre();
+    void setNombre( string &nombre);
+    const string &getId();
+    void setId(string &id);
+    bool isIngresaNinno();
     void setIngresaNinno(bool ingresaNinno);
-    bool isEmbarazada() const;
+    bool isEmbarazada();
     void setEmbarazada(bool embarazada);
-    bool isAdultoMayor() const;
+    bool isAdultoMayor() ;
     void setAdultoMayor(bool adultoMayor);
-    int getCategoria() const;
+    int getCategoria() ;
     void setCategoria(int categoria);
     float porcentajeInfluencia();
+    string toString();
 };
 
 

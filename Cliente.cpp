@@ -8,29 +8,40 @@ Cliente::Cliente(const string &nombre, const string &id, bool ingresaNinno, bool
                  int categoria) : nombre(nombre), id(id), ingresaNinno(ingresaNinno), embarazada(embarazada),
                                   adultoMayor(adultoMayor), categoria(categoria) {}
 
+Cliente::Cliente(istream& input) {
+
+    getline(input, this->nombre, ',');
+    getline(input, this->id, ',');
+    input >> this->ingresaNinno;
+    input >> this->embarazada;
+    input >> this->adultoMayor;
+    input >> this->categoria;
+
+}
+
 Cliente::Cliente() {}
 
 Cliente::~Cliente() {
 
 }
 
-const string &Cliente::getNombre() const {
+const string &Cliente::getNombre() {
     return nombre;
 }
 
-void Cliente::setNombre(const string &nombre) {
+void Cliente::setNombre( string &nombre) {
     Cliente::nombre = nombre;
 }
 
-const string &Cliente::getId() const {
+const string &Cliente::getId(){
     return id;
 }
 
-void Cliente::setId(const string &id) {
+void Cliente::setId( string &id) {
     Cliente::id = id;
 }
 
-bool Cliente::isIngresaNinno() const {
+bool Cliente::isIngresaNinno(){
     return ingresaNinno;
 }
 
@@ -38,7 +49,7 @@ void Cliente::setIngresaNinno(bool ingresaNinno) {
     Cliente::ingresaNinno = ingresaNinno;
 }
 
-bool Cliente::isEmbarazada() const {
+bool Cliente::isEmbarazada() {
     return embarazada;
 }
 
@@ -46,14 +57,14 @@ void Cliente::setEmbarazada(bool embarazada) {
     Cliente::embarazada = embarazada;
 }
 
-bool Cliente::isAdultoMayor() const {
+bool Cliente::isAdultoMayor() {
     return adultoMayor;
 }
 
 void Cliente::setAdultoMayor(bool adultoMayor) {
     Cliente::adultoMayor = adultoMayor;
 }
-int Cliente::getCategoria() const {
+int Cliente::getCategoria() {
     return categoria;
 }
 
@@ -78,5 +89,14 @@ float Cliente::porcentajeInfluencia() {
     return porcentaje;
 }
 
-
+string Cliente::toString() {
+    stringstream s;
+    s<<"Nombre: "<< this->nombre<<endl;
+    s<<"ID: "<< this->id<<endl;
+    s<<"Ingresa con ninno"<<this->ingresaNinno<<endl;
+    s<<"Embarazada: "<< this->embarazada<<endl;
+    s<<"Adulto Mayor: "<<this->adultoMayor<<endl;
+    s<<"Categoria: "<<this->categoria<<endl;
+    return s.str();
+}
 

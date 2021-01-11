@@ -12,7 +12,7 @@ public:
     ~ArbolABB();
     Nodo<T> *getRaiz() const;
     void setRaiz(Nodo<T> *raiz);
-    void Insertar(const T dat);
+    void Insertar(T dat);
     void Borrar(const T dat);
     bool Buscar(const T dat);
     bool vacio(Nodo<T> *r);

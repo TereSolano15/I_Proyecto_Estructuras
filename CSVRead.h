@@ -6,27 +6,31 @@
 #define I_PROYECTO_ESTRUCTURAS_CSVREAD_H
 #include "ArbolABB.h"
 #include"IReader.h"
+#include <string>
 #include "TransformadorCSV.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 template<class T>
-class CSVRead :  public IReader<T>{
+class CsvReader : public IReader<T>{
 private:
     fstream entrada;
     TransformadorCsvCliente<T>* transformadorCsv;
-    ArbolABB<T>* generarCampos(const string& registroActual){
-        ArbolABB<string>* campos = new ArbolABB<string>();
+
+    ArbolABB<T>* generarCampos(string registroActual){
+       ArbolABB<T>* campos = new ArbolABB<T>;
         string valor;
         istringstream iss(registroActual);
         while (getline(iss, valor, ',')){
-            campos->Insertar(valor);
+            campos->push_back(valor);
         }
         return campos;
     }
+
 public:
-    CSVRead(string rutaArchivo, TransformadorCsvCliente<T>* transformadorCsv){
+    CsvReader(string rutaArchivo, TransformadorCsvCliente<T>* transformadorCsv){
         this->transformadorCsv = transformadorCsv;
         this->entrada.open(rutaArchivo, ios::in);
         if (!entrada.good())
@@ -34,18 +38,19 @@ public:
             throw invalid_argument("Ruta del archivo no es valida o no hay permisos.");
         }
     }
-    ArbolABB<T>* leerTodos(){
+
+   ArbolABB<T>* leerTodos(){
         string registroActual;
-        auto* objetos = new ArbolABB<T>();
-        while (getline(this->entrada, registroActual))
-        {
-            ArbolABB<T>* campos = this->generarCampos(registroActual);
+        vector<T>* objetos = new vector<T>();
+        while (getline(this->entrada, registroActual)){
+            vector<string>* campos = this->generarCampos(registroActual);
             objetos->push_back(this->transformadorCsv->fromStringVector(campos));
             delete campos;
         }
         return objetos;
     }
-    ~CSVRead(){
+
+    ~CsvReader(){
         delete this->transformadorCsv;
     }
 };

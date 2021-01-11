@@ -8,8 +8,7 @@
 using namespace std;
 
 template<class T>
-class IWriter
-{
+class IWriter{
 public:
     virtual void escribir(T elemento) = 0;
     virtual void escribirTodos(ArbolABB<T>* elementos) = 0;

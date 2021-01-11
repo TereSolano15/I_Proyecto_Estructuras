@@ -30,7 +30,7 @@ void ArbolABB<T>::eliminar(Nodo<T>* &nodo){
     }
 }
 template <typename T>
-void ArbolABB<T>::Insertar(const T dat){
+void ArbolABB<T>::Insertar(T dat){
     Nodo<T> *padre = nullptr;
     actual = raiz;
     while(!vacio(actual) && dat != actual->dato) {

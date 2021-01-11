@@ -8,8 +8,7 @@
 using namespace std;
 
 template<class T>
-class IReader
-{
+class IReader{
 public:
     virtual ArbolABB<T>* leerTodos() = 0;
     virtual ~IReader() = default;
