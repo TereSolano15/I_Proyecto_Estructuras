@@ -7,8 +7,9 @@
 #include<fstream>
 #include"TransformadorCSV.h"
 #include "ArbolABB.h"
+#include"IWriter.h"
 template<class T>
-class CsvWriter{
+class CsvWriter : public IWriter<T>{
 private:
     fstream salida;
     TransformadorCsvCliente<T>* transformadorCsv;

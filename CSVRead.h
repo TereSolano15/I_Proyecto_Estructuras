@@ -5,13 +5,14 @@
 #ifndef I_PROYECTO_ESTRUCTURAS_CSVREAD_H
 #define I_PROYECTO_ESTRUCTURAS_CSVREAD_H
 #include "ArbolABB.h"
+#include"IReader.h"
 #include "TransformadorCSV.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
 template<class T>
-class CSVRead : public TransformadorCsvCliente<T>{
+class CSVRead :  public IReader<T>{
 private:
     fstream entrada;
     TransformadorCsvCliente<T>* transformadorCsv;
