@@ -16,7 +16,7 @@ private:
     fstream entrada;
     TransformadorCsvCliente<T>* transformadorCsv;
     ArbolABB<T>* generarCampos(const string& registroActual){
-        ArbolABB<string>* campos = new vector<string>();
+        ArbolABB<string>* campos = new ArbolABB<string>();
         string valor;
         istringstream iss(registroActual);
         while (getline(iss, valor, ',')){

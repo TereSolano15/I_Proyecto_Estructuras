@@ -5,8 +5,8 @@
 #include "Cliente.h"
 
 Cliente::Cliente(const string &nombre, const string &id, bool ingresaNinno, bool embarazada, bool adultoMayor,
-                 const string &categoria) : nombre(nombre), id(id), ingresaNinno(ingresaNinno), embarazada(embarazada),
-                                            adultoMayor(adultoMayor), categoria(categoria) {}
+                 int categoria) : nombre(nombre), id(id), ingresaNinno(ingresaNinno), embarazada(embarazada),
+                                  adultoMayor(adultoMayor), categoria(categoria) {}
 
 Cliente::Cliente() {}
 
@@ -53,11 +53,30 @@ bool Cliente::isAdultoMayor() const {
 void Cliente::setAdultoMayor(bool adultoMayor) {
     Cliente::adultoMayor = adultoMayor;
 }
-
-const string &Cliente::getCategoria() const {
+int Cliente::getCategoria() const {
     return categoria;
 }
 
-void Cliente::setCategoria(const string &categoria) {
+void Cliente::setCategoria(int categoria) {
     Cliente::categoria = categoria;
 }
+float Cliente::porcentajeInfluencia() {
+    float porcentaje = 0;
+    int cat = getCategoria();
+    if(ingresaNinno)
+        porcentaje += 0.20;
+    if(embarazada)
+        porcentaje *= 0.25;
+    if(adultoMayor)
+        porcentaje += 0.30;
+    switch (categoria) {
+        case 1:
+            porcentaje += 0.20;
+        case 2:
+            porcentaje += 0.10;
+    }
+    return porcentaje;
+}
+
+
+
