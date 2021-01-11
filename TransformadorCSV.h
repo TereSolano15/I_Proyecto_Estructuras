@@ -23,8 +23,8 @@ public:
         return campos;
     }
 
-    Cliente* fromStringVector(vector<string>* vector){
-        return new Cliente(vector->at(0), stoi(vector->at(1)));
+    Cliente* fromStringArbol(ArbolABB<T>* arbol){
+        return new Cliente(arbol->at(0), stoi(arbol->at(1)));
     }
 };
 #endif //I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H

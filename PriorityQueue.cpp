@@ -5,7 +5,7 @@
 #include "PriorityQueue.h"
 template <typename E, typename C>
 int PriorityQueue<typename E, typename C>::size() const{
-    return arbol.altura();
+    return arbol.cant;
 }
 template <typename E, typename C>
 bool PriorityQueue<typename E, typename C>::empty() const{
