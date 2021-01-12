@@ -2,18 +2,19 @@
 // Created by Tere Solano on 9/1/2021.
 //
 
-#ifndef I_PROYECTO_ESTRUCTURAS_CSVWRITE_H
-#define I_PROYECTO_ESTRUCTURAS_CSVWRITE_H
+#ifndef I_PROYECTO_ESTRUCTURAS_CSVWRITER_H
+#define I_PROYECTO_ESTRUCTURAS_CSVWRITER_H
 #include<fstream>
 #include"TransformadorCSV.h"
 #include "ArbolABB.h"
 #include"IWriter.h"
+
 template<class T>
 class CsvWriter : public IWriter<T>{
 private:
     fstream salida;
-    TransformadorCsvCliente<T>* transformadorCsv;
-    string generarRegistro(ArbolABB<T> campos){
+    ITransformadorCsv<T>* transformadorCsv;
+    string generarRegistro(ArbolABB<string> campos){
         auto begin = campos->begin();
         auto end = campos->end();
         stringstream ss;
@@ -28,7 +29,7 @@ private:
         return ss.str();
     }
 public:
-    CsvWriter(string rutaArchivo, TransformadorCsvCliente<T>* transformadorCsv){
+    CsvWriter(string rutaArchivo, ITransformadorCsv<T>* transformadorCsv){
         this->transformadorCsv = transformadorCsv;
         this->salida.open(rutaArchivo, ios::out);
         if (!this->salida.good()){
@@ -37,11 +38,11 @@ public:
     }
 
     void escribir(T elemento){
-        ArbolABB<T> campos = this->transformadorCsv->toStringVector(elemento);
+        ArbolABB<string> campos = this->transformadorCsv->toStringVector(elemento);
         this->salida << this->generarRegistro(campos);
         delete campos;
     }
-    void escribirTodos(vector<T>* elementos){
+    void escribirTodos(ArbolABB<T>* elementos){
         for (auto& actual : *elementos){
             this->escribir(actual);
         }
@@ -51,4 +52,4 @@ public:
         delete this->transformadorCsv;
     }
 };
-#endif //I_PROYECTO_ESTRUCTURAS_CSVWRITE_H
+#endif //I_PROYECTO_ESTRUCTURAS_CSVWRITER_H
