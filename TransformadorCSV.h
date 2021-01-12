@@ -11,28 +11,31 @@
 using namespace std;
 
 template<class T>
-class ITransformadorCsv
-{
+class TransformadorCsvCliente {
 public:
-    virtual ArbolABB<string>* toStringVector(T elemento) = 0;
-    virtual T fromStringArbol(ArbolABB<string>* arbol) = 0;
-    virtual ~ITransformadorCsv() = default;
-};
-class TransformadorCsvCliente  : public ITransformadorCsv<Cliente*>{
-public:
-    ArbolABB<string>* toStringVector(Cliente* elemento){
-        ArbolABB<string>* arbol = new ArbolABB<string>();
-        arbol->push_back(elemento->getNombre());
-        arbol->push_back(elemento->getId());
-        arbol->push_back(elemento->isIngresaNinno());
-        arbol->push_back(elemento->isEmbarazada());
-        arbol->push_back(elemento->isAdultoMayor());
-        arbol->push_back(elemento->getCategoria());
-        return arbol;
+    ArbolABB<string> * toStringVector(Cliente* elemento){
+        ArbolABB<string>* list = new ArbolABB<string>;
+        list->Insertar(elemento->getNombre());
+        list->Insertar(elemento->getId());
+        list->Insertar(to_string(elemento->isIngresaNinno()));
+        list->Insertar(to_string(elemento->isEmbarazada()));
+        list->Insertar(to_string(elemento->isAdultoMayor()));
+        list->Insertar(to_string(elemento->getCategoria()));
+        return list;
     }
 
-    Cliente* fromStringArbol(ArbolABB<string>* arbol){
-        return new Cliente(arbol->at(0),arbol->at(1),arbol->at(2),arbol->at(3),arbol->at(4),arbol->at(5));
+    Cliente* fromStringLista(ArbolABB<string>* lista) {
+        Cliente* cliente = new Cliente();
+        cliente->setNombre(lista->ValorActual());
+        cliente->setId(reinterpret_cast<string &>(lista->getActual()->getSiguiente()->data));
+        cliente->setIngresaNinno(lista->getActual()->getSiguiente()->getSiguiente()->data);
+        cliente->setEmbarazada(lista->getActual()->getSiguiente()->getSiguiente()->getSiguiente()->data);
+        cliente->setAdultoMayor(lista->getActual()->getSiguiente()->getSiguiente()->getSiguiente()->getSiguiente()->data);
+        cliente->setCategoria(
+                reinterpret_cast<int>(lista->getActual()->getSiguiente()->getSiguiente()->getSiguiente()->getSiguiente()->getSiguiente()->getSiguiente()->data));
+
+        return cliente;
     }
+};
 };
 #endif //I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
