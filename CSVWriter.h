@@ -14,7 +14,7 @@ class CsvWriter : public IWriter<T>{
 private:
     fstream salida;
     ITransformadorCsv<T>* transformadorCsv;
-    string generarRegistro(ArbolABB<string> campos){
+    string generarRegistro(vector<string>* campos){
         auto begin = campos->begin();
         auto end = campos->end();
         stringstream ss;
@@ -38,11 +38,11 @@ public:
     }
 
     void escribir(T elemento){
-        ArbolABB<string> campos = this->transformadorCsv->toStringVector(elemento);
+        vector<string>* campos = this->transformadorCsv->toStringVector(elemento);
         this->salida << this->generarRegistro(campos);
         delete campos;
     }
-    void escribirTodos(ArbolABB<T>* elementos){
+    void escribirTodos(vector<T>* elementos){
         for (auto& actual : *elementos){
             this->escribir(actual);
         }

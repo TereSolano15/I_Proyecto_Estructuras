@@ -10,7 +10,7 @@ using namespace std;
 int main() {
 
     IReader<Cliente*>* reader = new CsvReader<Cliente*>("BancoUNO.csv", new TransformadorCsvCliente());
-    ArbolABB<Cliente*>* clientes = reader->leerTodos();
+    vector<Cliente*>* clientes = reader->leerTodos();
 
     for (auto& cliente : *clientes){
         cout << cliente->toString() << endl;

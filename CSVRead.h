@@ -19,8 +19,8 @@ private:
     fstream entrada;
     ITransformadorCsv<T>* transformadorCsv;
 
-    ArbolABB<T>* generarCampos(string registroActual){
-       ArbolABB<T>* campos = new ArbolABB<T>;
+    vector<string>* generarCampos(string registroActual){
+        vector<string>* campos = new vector<string>;
         string valor;
         istringstream iss(registroActual);
         while (getline(iss, valor, ',')){
@@ -30,7 +30,8 @@ private:
     }
 
 public:
-    CsvReader(string rutaArchivo, ITransformadorCsv<T>* transformadorCsv){
+    CsvReader(string rutaArchivo, ITransformadorCsv<T>* transformadorCsv)
+    {
         this->transformadorCsv = transformadorCsv;
         this->entrada.open(rutaArchivo, ios::in);
         if (!entrada.good())
@@ -39,11 +40,13 @@ public:
         }
     }
 
-   ArbolABB<T>* leerTodos(){
+    vector<T>* leerTodos()
+    {
         string registroActual;
-       ArbolABB<T>* objetos = new ArbolABB<T>();
-        while (getline(this->entrada, registroActual)){
-            ArbolABB<string>* campos = this->generarCampos(registroActual);
+        vector<T>* objetos = new vector<T>();
+        while (getline(this->entrada, registroActual))
+        {
+            vector<string>* campos = this->generarCampos(registroActual);
             objetos->push_back(this->transformadorCsv->fromStringVector(campos));
             delete campos;
         }

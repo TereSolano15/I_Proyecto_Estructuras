@@ -13,28 +13,28 @@ class Cliente {
 private:
     string nombre;
     string id;
-    bool ingresaNinno;
-    bool embarazada;
-    bool adultoMayor;
-    int categoria;
+    string ingresaNinno;
+    string embarazada;
+    string adultoMayor;
+    string categoria;
 public:
-    Cliente(const string &nombre, const string &id, bool ingresaNinno, bool embarazada, bool adultoMayor,
-            int categoria);
+    Cliente(const string &nombre, const string &id, const string &ingresaNinno, const string &embarazada, const string &adultoMayor,
+            const string &categoria);
     Cliente();
-    Cliente(istream& input);
+    //Cliente(istream& input);
     virtual ~Cliente();
     const string &getNombre();
     void setNombre( string &nombre);
     const string &getId();
     void setId(string &id);
-    bool isIngresaNinno();
-    void setIngresaNinno(bool ingresaNinno);
-    bool isEmbarazada();
-    void setEmbarazada(bool embarazada);
-    bool isAdultoMayor() ;
-    void setAdultoMayor(bool adultoMayor);
-    int getCategoria() ;
-    void setCategoria(int categoria);
+    const string &isIngresaNinno();
+    void setIngresaNinno(string &ingresaNinno);
+    const string &isEmbarazada();
+    void setEmbarazada(string &embarazada);
+    const string &isAdultoMayor() ;
+    void setAdultoMayor(string &adultoMayor);
+    const string &getCategoria() ;
+    void setCategoria(string &categoria);
     float porcentajeInfluencia();
     string toString();
 };
