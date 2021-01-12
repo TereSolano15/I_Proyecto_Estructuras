@@ -44,5 +44,4 @@ public:
         return cliente;
     }
 };
-};
 #endif //I_PROYECTO_ESTRUCTURAS_TRANSFORMADORCSV_H
