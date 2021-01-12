@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Cliente.h"
 #include "CSVRead.h"
+#include "CSVWriter.h"
 #include "PriorityQueue.h"
 #include "TransformadorCSV.h"
 #include "ArbolABB.h"
@@ -8,12 +9,13 @@
 using namespace std;
 int main() {
 
-    IReader<Cliente*>* reader = new CsvReader<Cliente*>("personas.csv", new TransformadorCsvPersona());
+    IReader<Cliente*>* reader = new CsvReader<Cliente*>("BancoUNO.csv", new TransformadorCsvCliente());
     ArbolABB<Cliente*>* clientes = reader->leerTodos();
 
     for (auto& cliente : *clientes){
         cout << cliente->toString() << endl;
     }
 
-    return 0;
+    delete clientes;
+    delete reader;
 }

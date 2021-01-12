@@ -11,7 +11,14 @@
 using namespace std;
 
 template<class T>
-class TransformadorCsvCliente {
+class ITransformadorCsv
+{
+public:
+    virtual ArbolABB<string>* toStringVector(T elemento) = 0;
+    virtual T fromStringLista(ArbolABB<string>* vector) = 0;
+    virtual ~ITransformadorCsv() = default;
+};
+class TransformadorCsvCliente : public ITransformadorCsv<Cliente*> {
 public:
     ArbolABB<string> * toStringVector(Cliente* elemento){
         ArbolABB<string>* list = new ArbolABB<string>;
